@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *Sean Luo 15/10/2018
+ *ATM.java
+ *This is progrem calculates the ATM.
  */
 package mybankmachine;
 
@@ -12,71 +12,53 @@ import javax.swing.JOptionPane;
  * @author clkon
  */
 public class ATM {
-    double money,i,money2 ;
-        String money1,bank,year ;
-        double money3,days;;
+    String bankName;
+    double balance;
     
-public ATM(){
-     money = (int)(Math.random()*10000);
-        money1 = JOptionPane.showInputDialog("How much money do you want to deposit\n"+"the current balance:"
-        +money);
-         i = Integer.parseInt(money1);
-         if(i > 0 );{
-        money2 = i + money;
-                JOptionPane.showMessageDialog(null,"Now, you have money:"+ money2);
+public ATM(String bankName1, double balance1){
+    bankName = bankName1;
+    balance = balance1;
+}    
+public void displayBalance(){
+    balance = Math.rint(balance*100)/100;
+    JOptionPane.showMessageDialog(null,"The current balance = " + balance);
 }
-          if (i<0) {
+    
+public void deposit(double amount){
+         if(amount > 0 ){
+         balance +=amount;
+}
+          else{
           JOptionPane.showMessageDialog(null,"Your input should be greater than 0");  
                  }
 
 }
-public ATM(double withdrawmoney){
-    money =(int)(Math.random()*10000);
-    money1 = JOptionPane.showInputDialog("How much money do you want to withdraw?"+"the current balance:"
-        +money);
-    i = Integer.parseInt(money1);;
-        if(i > 0 );{
-        withdrawmoney = money - i;
-                JOptionPane.showMessageDialog(null,"Now, you have money:"+ withdrawmoney);
-}
-        if(i < 0) {
-          JOptionPane.showMessageDialog(null,"Your input should be greater than 0");  
-                 }
+public void withdraw(double amount){
+        if(amount <0){
+    JOptionPane.showMessageDialog(null,"Your input should be greater than 0");
+}        
+        else if (balance < amount){
+                JOptionPane.showMessageDialog(null,"You don't have enough money to withdraw.");
+                }
+                else{
+                balance -=amount;
+                }
     
 }
-    public ATM(String dailyinterest){
-        double d = new Double(dailyinterest);
-    bank = JOptionPane.showInputDialog("Which bank is your bank card?\n"+
-            "1.BMO"+
-            "2.Royal Bank"+
-            "Other bank");
-    if(bank.equals("1")){
-        d = (1.5/100);
-        money =(int)(Math.random()*10000);
-        days = (int)(Math.random()*600);
-        money3 = money*(Math.pow((1+d),days));
-        JOptionPane.showMessageDialog(null,"the annual interest rate:"+ d+"\n"
-        +"the number of days to leave the balance invested"+ days
-        +"It should then add the interest to the current balance"+money3);  
-    }
-    else if (bank.equals("2")){
-        d =(1.4/100);
-        money =(int)(Math.random()*10000);
-        days = (int)(Math.random()*600);
-        money3 = money*(Math.pow((1+d),days));
-        JOptionPane.showMessageDialog(null,"the annual interest rate:"+ dailyinterest+"\n"
-        +"the number of days to leave the balance invested"+ days
-        +"It should then add the interest to the current balance"+money3);  
-    }
-    else{
-        d = (1.6/100);
-        money =(int)(Math.random()*10000);
-        days = (int)(Math.random()*600);
-        money3 = money*(Math.pow((1+d),days));
-        JOptionPane.showMessageDialog(null,"the annual interest rate:"+ dailyinterest+"\n"
-        +"the number of days to leave the balance invested"+ days
-        +"It should then add the interest to the current balance"+money3);  
-    }
+    public void addDailyInterest(double intRate,int numDays){
+        if(intRate >= 0 && numDays >=0){
+            double i =(intRate/100)/365;
+            double A = balance * Math.pow((1.0 + i),numDays);
+            JOptionPane.showMessageDialog(null,"The intereset earned in " + numDays + " = " +
+                    (A - balance));
+            balance = A;
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"There is a problem with your interest"
+                    + "rate or the number of days");
+            JOptionPane.showMessageDialog(null,"Your input should be greater than 0");
+        }
+
 
     
 }

@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *Sean Luo 03/10/2018
+ *MyBankMachine.java
+ *This is progrem calculates the MyBankMachine.
  */
 package mybankmachine;
 
@@ -17,21 +17,45 @@ public class MyBankMachine {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       String choice = JOptionPane.showInputDialog("Creating ATM object:\n"
-                + "1.deposit money\n"
-                + "2.withdraw money\n"
-       +"3.add daily interest");
-       if(choice.equalsIgnoreCase("1")){
-          ATM ATM1 = new ATM();
+        String bank = JOptionPane.showInputDialog("Please enter your bank's name.For example BMO,Royal Bank,etc.");
+        String balanceStr = JOptionPane.showInputDialog("Please enter a starting balance.");
+        double balance = Double.parseDouble(balanceStr);
+        ATM ATM = new ATM(bank,balance);
+        boolean done = false;
+        String menu;
+        while(!done){
+        menu = JOptionPane.showInputDialog("Please select from the following menu:\n"
+                +"1.display balance\n"           
+                + "2.deposit money\n"
+                + "3.withdraw money\n"
+       +"4.add daily interest\n"
+        +"5.Exit");
+       if(menu.equalsIgnoreCase("1")){
+          ATM.displayBalance();
        }
-       else if (choice.equalsIgnoreCase("2")){
-         ATM ATM2 = new ATM();
+       else if (menu.equals("2")){
+         String amountStr = JOptionPane.showInputDialog("How much will you deposit?");
+         double amount = Double.parseDouble(amountStr);
+         ATM.deposit(amount);
     }
-    else if (choice.equalsIgnoreCase("3")){
-          ATM ATM3= new ATM();
+    else if (menu.equals("3")){
+           String amountStr = JOptionPane.showInputDialog("How much will you withdraw?");
+         double amount = Double.parseDouble(amountStr);
+         ATM.withdraw(amount);
     }
-    else{
-        System.out.println("Invalid selection!");
+    else if (menu.equals("4")){
+        String rateStr = JOptionPane.showInputDialog("What is the annual interest rate as a percentage?");
+        String daysStr = JOptionPane.showInputDialog("How many days will you leave the balance invested?");
+        double rate = Double.parseDouble(rateStr);
+        int days = Integer.parseInt(daysStr);
+        ATM.addDailyInterest(rate,days);
+    }
+    else if (menu.equals("5")){
+        
+    }
+    else{   
+        JOptionPane.showMessageDialog(null,"Invalid selection!");
+    }
 }
 }
 }
