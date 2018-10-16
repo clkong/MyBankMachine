@@ -51,7 +51,7 @@ public class MyBankMachine {
         ATM.addDailyInterest(rate,days);
     }
     else if (menu.equals("5")){
-        
+        done = true;
     }
     else{   
         JOptionPane.showMessageDialog(null,"Invalid selection!");
